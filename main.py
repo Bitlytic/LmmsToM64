@@ -2,7 +2,6 @@
 import sys
 import re
 import os
-import warnings
 from configparser import RawConfigParser
 
 # Probably need to install this one though
@@ -16,6 +15,7 @@ configparser.read(configFilePath)
 version = configparser.get('decomp-info', 'version')
 version = version.upper()
 abi_type = ''
+output_folder_suffix = version.lower()
 
 if version == 'US':
     abi_type = 'sm64'
@@ -23,13 +23,13 @@ elif version == 'EU':
     abi_type = 'sm64eu'
 else:
     abi_type = 'sm64'
-    warnings.warn(f"Version selected is {version}, which I'm not sure will work, but we'll try anyways")
+    print(f"\nWARNING:\nVersion selected is {version}, which I'm not sure will work, but we'll try anyways\n")
 
 decomp_path = configparser.get('decomp-info', 'path')
 if decomp_path[-1] != '\\':
     decomp_path += '\\'
 
-sound_bank_path = 'sound\\sequences\\us\\'
+sound_bank_path = 'sound\\sequences\\' + output_folder_suffix + '\\'
 
 seq_path = configparser.get('seq64-info', 'path-to-exe')
 
@@ -52,7 +52,6 @@ for i, track in enumerate(input_midi.tracks):
 
     # Patch is entry in instrument_list found in sound bank json files
     r1 = re.findall(r"Patch ([\-0-9]*)", track.name)
-
     # Pitch is for correction, certain instruments will play at different pitches in sm64,
     # so if you want to adjust pitch outside of lmms, you can add Pitch {value} to the name
     # to adjust this, otherwise it plays at default pitch
