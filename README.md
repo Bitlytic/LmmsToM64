@@ -116,6 +116,10 @@ Then, look for that instrument in the instrument_list, and take note of the inde
 Back in LMMS, rename the track of your midi, and add a (Patch {value}) where {value} is the same index as your instrument. inst0 was 0, so the track 
 that used trumpets could be named Trumpets (Patch 0) for instance, and there could also be a track called Hihat (Patch 11). 
 
+If you build to decomp, you might notice some weird pitch bending, if you don't want to edit what notes you have in LMMS, you can also add a (Pitch {value}) to 
+add pitch shifting to a specific track without editing your LMMS project. The pitches are semitones, so a (Pitch 12) will bump it up one octave, and (Pitch -12) will
+bump it down one octave
+
 After all of these have been renamed, we can now export to midi by doing File -> Export Midi..., and saving in the same folder as LmmsToM64.
 
 ### LmmsToM64
